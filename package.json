@@ -1,0 +1,18 @@
+{
+  "name": "bar-scripts",
+  "version": "1.0.0",
+  "main": "index.ts",
+  "scripts": {
+    "build": "tstl --outDir lib",
+    "deploy": "tstl --outDir lib && cp -r lib/src ../../AppData/Local/Programs/Beyond-All-Reason/data/LuaUI/Widgets",
+    "dev": "tstl --outDir lib --watch"
+  },
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tsx": "^4.19.2",
+    "typescript": "^5.6.3",
+    "typescript-to-lua": "^1.27.1"
+  }
+}
