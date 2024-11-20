@@ -50,17 +50,18 @@ widget.MouseRelease = function (x: number, y: number, button: number): boolean {
 widget.DrawScreen = function (): void {
   DrawButton();
   if (isAreaSelectionActive && startX !== undefined && startZ !== undefined) {
-    const [_, pos] = Spring.TraceScreenRay(Spring.GetMouseState());
+    const [x, y, checkUnits] = Spring.GetMouseState();
+    const [_, pos] = Spring.TraceScreenRay(x, y, checkUnits);
     if (pos) {
-      gl.Color([1, 1, 1, 0.3]);
+      gl.Color(1, 1, 1, 0.3);
       gl.Rect(startX, startZ, pos[0], pos[2]);
-      gl.Color([1, 1, 1, 1]);
+      gl.Color(1, 1, 1, 1);
     }
   }
 };
 
 widget.Shutdown = function (): void {
-  gl.Color([1, 1, 1, 1]); // Reset color on shutdown
+  gl.Color(1, 1, 1, 1); // Reset color on shutdown
 };
 
 const [screenX, screenY] = Spring.GetViewGeometry();
@@ -82,9 +83,9 @@ function DrawButton(): void {
     buttonColor = [0.7, 0.7, 0.7, 0.7]; // Pressed button color
   }
 
-  gl.Color(buttonColor); // Set button color
+  gl.Color(...buttonColor); // Set button color
   gl.Rect(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight);
-  gl.Color([1, 1, 1, 1]); // Reset color to white
+  gl.Color(1, 1, 1, 1); // Reset color to white
   gl.Text("Build Wind Rows", buttonX, buttonY, 16, "o");
 }
 

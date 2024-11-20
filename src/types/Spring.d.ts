@@ -1,11 +1,12 @@
 type Position = [number, number, number];
 
 declare class Spring {
-  static GetViewGeometry(): LuaMultiReturn<[number, number]>;
-  static GetMouseState(): LuaMultiReturn<[number, number, boolean]>;
-  static GetSelectedUnits(): number[];
-  static GetGroundHeight(x: number, z: number): number;
+  static GetViewGeometry(this: void): LuaMultiReturn<[number, number]>;
+  static GetMouseState(this: void): LuaMultiReturn<[number, number, boolean]>;
+  static GetSelectedUnits(this: void): number[];
+  static GetGroundHeight(this: void, x: number, z: number): number;
   static GiveOrderToUnit(
+    this: void,
     unitID: number,
     order: number,
     params: number[],
@@ -23,11 +24,13 @@ declare class Spring {
   ): void;
 
   static TraceScreenRay(
+    this: void,
     args: LuaMultiReturn<
       [screenX: number, screenY: number, checkUnits: boolean]
     >
   ): LuaMultiReturn<[unknown, Position | null]>;
   static TraceScreenRay(
+    this: void,
     screenX: number,
     screenY: number,
     checkUnits: boolean

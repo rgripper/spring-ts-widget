@@ -23,7 +23,7 @@ local function DrawButton()
         buttonColor = {0.7, 0.7, 0.7, 0.7} -- Pressed button color
     end
 
-    gl.Color(buttonColor) -- Set button color
+    gl.Color(unpack(buttonColor)) -- Set button color
     gl.Rect(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight)
     gl.Color(1, 1, 1, 1) -- Reset color to white
     gl.Text("Build Wind Rows", buttonX, buttonY, 16, "o")

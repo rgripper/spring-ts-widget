@@ -5,10 +5,10 @@ function DrawButton(self)
     if isAreaSelectionActive then
         buttonColor = {0.7, 0.7, 0.7, 0.7}
     end
-    gl:Color(buttonColor)
-    gl:Rect(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight)
-    gl:Color({1, 1, 1, 1})
-    gl:Text(
+    gl.Color(unpack(buttonColor))
+    gl.Rect(buttonX, buttonY, buttonX + buttonWidth, buttonY + buttonHeight)
+    gl.Color(1, 1, 1, 1)
+    gl.Text(
         "Build Wind Rows",
         buttonX,
         buttonY,
@@ -20,7 +20,7 @@ function IsMouseOverButton(self, x, y)
     return x > buttonX * screenX and x < (buttonX + buttonWidth) * screenX and y > buttonY * screenY and y < (buttonY + buttonHeight) * screenY
 end
 function QueueWindTurbines(self)
-    local selectedUnits = Spring:GetSelectedUnits()
+    local selectedUnits = Spring.GetSelectedUnits()
     if not selectedUnits or #selectedUnits == 0 then
         return
     end
@@ -40,22 +40,22 @@ function QueueWindTurbines(self)
             local posX2 = startX + offsetX + gapBetweenRows
             local posZ2 = startZ + offsetZ + gapBetweenRows
             for ____, unitID in ipairs(selectedUnits) do
-                Spring:GiveOrderToUnit(
+                Spring.GiveOrderToUnit(
                     unitID,
                     -windTurbineDefID,
                     {
                         posX1,
-                        Spring:GetGroundHeight(posX1, posZ1),
+                        Spring.GetGroundHeight(posX1, posZ1),
                         posZ1
                     },
                     {"shift"}
                 )
-                Spring:GiveOrderToUnit(
+                Spring.GiveOrderToUnit(
                     unitID,
                     -windTurbineDefID,
                     {
                         posX2,
-                        Spring:GetGroundHeight(posX2, posZ2),
+                        Spring.GetGroundHeight(posX2, posZ2),
                         posZ2
                     },
                     {"shift"}
@@ -67,7 +67,7 @@ function QueueWindTurbines(self)
 end
 widget.GetInfo = function(self)
     return {
-        name = "WindTurbineRowBuilder",
+        name = "WindTurbineRowBuilder 2",
         desc = "Creates double rows of wind turbines in a defined area",
         author = "ChatGPT",
         date = "2024-08-31",
@@ -82,7 +82,7 @@ widget.MousePress = function(self, x, y, button)
             isAreaSelectionActive = not isAreaSelectionActive
             return true
         elseif isAreaSelectionActive then
-            local _, pos = Spring:TraceScreenRay(x, y, true)
+            local _, pos = Spring.TraceScreenRay(x, y, true)
             if pos then
                 startX = pos[1]
                 startZ = pos[3]
@@ -94,7 +94,7 @@ widget.MousePress = function(self, x, y, button)
 end
 widget.MouseRelease = function(self, x, y, button)
     if button == 1 and isAreaSelectionActive and startX ~= nil and startZ ~= nil then
-        local _, pos = Spring:TraceScreenRay(x, y, true)
+        local _, pos = Spring.TraceScreenRay(x, y, true)
         if pos then
             endX = pos[1]
             endZ = pos[3]
@@ -108,18 +108,19 @@ end
 widget.DrawScreen = function(self)
     DrawButton(nil)
     if isAreaSelectionActive and startX ~= nil and startZ ~= nil then
-        local _, pos = Spring:TraceScreenRay({Spring:GetMouseState()})
+        local x, y, checkUnits = Spring.GetMouseState()
+        local _, pos = Spring.TraceScreenRay(x, y, checkUnits)
         if pos then
-            gl:Color({1, 1, 1, 0.3})
-            gl:Rect(startX, startZ, pos[1], pos[3])
-            gl:Color({1, 1, 1, 1})
+            gl.Color(1, 1, 1, 0.3)
+            gl.Rect(startX, startZ, pos[1], pos[3])
+            gl.Color(1, 1, 1, 1)
         end
     end
 end
 widget.Shutdown = function(self)
-    gl:Color({1, 1, 1, 1})
+    gl.Color(1, 1, 1, 1)
 end
-screenX, screenY = Spring:GetViewGeometry()
+screenX, screenY = Spring.GetViewGeometry()
 buttonX = screenX * 0.4
 buttonY = screenY * 0.1
 buttonWidth = 100
