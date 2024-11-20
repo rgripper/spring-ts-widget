@@ -9,7 +9,9 @@
   },
   "include": ["src"],
   "tstl": {
-    "luaTarget": "JIT",
-    "noImplicitGlobalVariables": true
+    "luaTarget": "5.1",
+    "noImplicitGlobalVariables": true,
+    "luaBundle": "lib/index.lua",
+    "luaBundleEntry": "src/index.ts"
   }
 }

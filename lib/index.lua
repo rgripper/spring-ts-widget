@@ -1,4 +1,29 @@
 --[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
+
+local ____modules = {}
+local ____moduleCache = {}
+local ____originalRequire = require
+local function require(file, ...)
+    if ____moduleCache[file] then
+        return ____moduleCache[file].value
+    end
+    if ____modules[file] then
+        local module = ____modules[file]
+        local value = nil
+        if (select("#", ...) > 0) then value = module(...) else value = module(file) end
+        ____moduleCache[file] = { value = value }
+        return value
+    else
+        if ____originalRequire then
+            return ____originalRequire(file)
+        else
+            error("module '" .. file .. "' not found")
+        end
+    end
+end
+____modules = {
+["src.index"] = function(...) 
+--[[ Generated with https://github.com/TypeScriptToLua/TypeScriptToLua ]]
 local DrawButton, IsMouseOverButton, QueueWindTurbines, screenX, screenY, buttonX, buttonY, buttonWidth, buttonHeight, isAreaSelectionActive, startX, startZ, endX, endZ, windTurbineDefID, gapBetweenRows
 function DrawButton(self)
     local buttonColor = {0.5, 0.5, 0.5, 0.7}
@@ -128,3 +153,6 @@ buttonHeight = 50
 isAreaSelectionActive = false
 windTurbineDefID = UnitDefNames.armwin.id
 gapBetweenRows = 16
+ end,
+}
+return require("src.index", ...)

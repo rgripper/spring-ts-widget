@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "main": "index.ts",
   "scripts": {
-    "build": "tstl --outDir lib",
-    "deploy": "tstl --outDir lib && cp -rf lib/src/* ../../AppData/Local/Programs/Beyond-All-Reason/data/LuaUI/Widgets",
-    "dev": "tstl --outDir lib --watch"
+    "build": "tstl",
+    "deploy": "tstl && cp -rf lib/* ../../AppData/Local/Programs/Beyond-All-Reason/data/LuaUI/Widgets",
+    "dev": "tstl --watch"
   },
   "author": "",
   "license": "ISC",
